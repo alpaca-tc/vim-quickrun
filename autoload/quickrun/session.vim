@@ -275,7 +275,11 @@ function s:Session.build_command(tmpl) abort
         endif
       endif
       let mod = matchstr(rest, '^\v\zs%(\:[p8~.htre]|\:g?s(.).{-}\1.{-}\1)*')
-      let value = fnamemodify(value, mod)
+
+      if !empty(mod)
+        let value = fnamemodify(value, mod)
+      endif
+
       if symbol =~# '\U'
         let value = self.runner.shellescape(value)
       endif
